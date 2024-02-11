@@ -4,6 +4,7 @@ import { StompSessionProvider } from "react-stomp-hooks";
 import { ThemeProvider } from "styled-components";
 
 import configs from "@/configs";
+import { AppProvider } from "@/contexts/app/AppContext.tsx";
 import theme, { GlobalStyle } from "@/themes";
 
 import App from "./App.tsx";
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <StompSessionProvider url={configs.publicRuntime.SOCKET_URL}>
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                <App />
+                <AppProvider>
+                    <App />
+                </AppProvider>
             </ThemeProvider>
         </StompSessionProvider>
     </React.StrictMode>

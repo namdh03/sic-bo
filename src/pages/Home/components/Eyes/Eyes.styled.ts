@@ -12,9 +12,8 @@ export const EyesWrapper = styled.div`
     }
 `;
 
-export const DuckEye = css`
+export const DuckEye = css<{ $flag: boolean }>`
     position: relative;
-    display: inline-block;
     min-width: 110px;
     padding: 24px;
     border-radius: 30px;
@@ -23,6 +22,75 @@ export const DuckEye = css`
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
+
+    span:first-child {
+        display: inline-block;
+        transform-style: preserve-3d;
+        animation: ${({ $flag }) => `blink-${$flag}`} ease 1s forwards,
+            ${({ $flag }) => `blink-back-${$flag}`} ease-in 1s forwards 6s;
+
+        img {
+            position: absolute;
+            top: calc(50% - 3px);
+            left: 50%;
+            transform: rotateY(-90deg) translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            animation: ${({ $flag }) => `slip-${$flag}`} ease 1s forwards 1s,
+                ${({ $flag }) => `spin-${$flag}`} ease 1s forwards 2s 3,
+                ${({ $flag }) => `slip-back-${$flag}`} ease 1s forwards 5s;
+
+            ${({ $flag }) => css`
+                @keyframes ${"slip-" + $flag} {
+                    100% {
+                        transform: rotateY(-90deg) translate(0, -50%);
+                    }
+                }
+
+                @keyframes ${"slip-back-" + $flag} {
+                    100% {
+                        transform: rotateY(270deg) translate(-50%, -50%);
+                    }
+                }
+
+                @keyframes ${"spin-" + $flag} {
+                    0% {
+                        transform: rotateY(-90deg) translate(0, -50%);
+                    }
+
+                    25% {
+                        transform: rotateY(0deg) translate(0, -50%);
+                    }
+
+                    50% {
+                        transform: rotateY(90deg) translate(0, -50%);
+                    }
+
+                    75% {
+                        transform: rotateY(180deg) translate(0, -50%);
+                    }
+
+                    100% {
+                        transform: rotateY(270deg) translate(0, -50%);
+                    }
+                }
+            `}
+        }
+
+        ${({ $flag }) => css`
+            @keyframes ${"blink-" + $flag} {
+                100% {
+                    transform: rotateY(90deg);
+                }
+            }
+
+            @keyframes ${"blink-back-" + $flag} {
+                100% {
+                    transform: rotateY(0deg);
+                }
+            }
+        `}
+    }
 
     span:last-child {
         position: absolute;
@@ -37,10 +105,6 @@ export const DuckEye = css`
     }
 `;
 
-export const SmallEye = styled.div`
-    ${DuckEye}
-`;
-
-export const BigEye = styled.div`
+export const Eye = styled.div<{ $flag: boolean }>`
     ${DuckEye}
 `;

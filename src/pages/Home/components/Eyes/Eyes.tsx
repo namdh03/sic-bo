@@ -1,17 +1,28 @@
-import { BigEye, EyesWrapper, SmallEye } from "./Eyes.styled";
+import icons from "@/assets/icons";
+import { useApp } from "@/hooks";
+
+import { Eye, EyesWrapper } from "./Eyes.styled";
 
 const Eyes = () => {
+    const { flag } = useApp();
+
     return (
         <EyesWrapper>
-            <SmallEye>
-                <span>SMALL</span>
+            <Eye $flag={flag}>
+                <span>
+                    <b>SMALL</b>
+                    <img src={icons.dollar} alt="dollar" />
+                </span>
                 <span>7.000.000</span>
-            </SmallEye>
+            </Eye>
 
-            <BigEye>
-                <span>BIG</span>
+            <Eye $flag={flag}>
+                <span>
+                    <b>BIG</b>
+                    <img src={icons.dollar} alt="dollar" />
+                </span>
                 <span>7.000.000</span>
-            </BigEye>
+            </Eye>
         </EyesWrapper>
     );
 };

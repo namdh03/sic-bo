@@ -11,7 +11,7 @@ export const DiceWrapper = styled.article<{ $value: number; $flag: boolean }>`
     height: ${DICE_SIZE}px;
     transform-style: preserve-3d;
     animation: ${({ $value, $flag }) => `roll-${$value}-${$flag}`} linear 2s
-        forwards 2;
+        forwards 3;
 
     ${({ $value, $flag }) => {
         switch ($value) {

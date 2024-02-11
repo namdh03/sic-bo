@@ -17,8 +17,7 @@ export const Lip = styled.div<{ $flag: boolean }>`
     padding: 26px 14px 14px;
     background-color: ${theme.colors.primary};
     border-radius: 50%;
-    animation: ${({ $flag }) => `quack-${$flag}`} ease-in-out 3s
-        forwards 2s;
+    animation: ${({ $flag }) => `quack-${$flag}`} ease-in-out 3s forwards 4s;
 
     & > div::before {
         content: "";
@@ -27,8 +26,7 @@ export const Lip = styled.div<{ $flag: boolean }>`
         width: 100%;
         height: 100%;
         background-color: ${theme.colors.tertiary};
-        animation: ${({ $flag }) => `show-${$flag}`} ease-in-out 3s
-            forwards 2s;
+        animation: ${({ $flag }) => `show-${$flag}`} ease-in-out 3s forwards 4s;
 
         ${({ $flag }) => css`
             @keyframes ${"show-" + $flag} {

@@ -2,7 +2,7 @@ import {
     createContext,
     FC,
     PropsWithChildren,
-    useLayoutEffect,
+    useEffect,
     useReducer,
 } from "react";
 
@@ -25,7 +25,7 @@ const AuthContext = createContext<AuthContextType>({
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         (() => {})();
     }, []);
 
