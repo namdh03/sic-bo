@@ -15,7 +15,7 @@ export type CookiesType = {
 
 export type SocketPathKey = "start";
 
-export type SocketPathValue = "/topic/gameStartResponse";
+export type SocketPathValue = "/topic/game";
 
 export type SocketPathConfigType = { [K in SocketPathKey]: SocketPathValue };
 
