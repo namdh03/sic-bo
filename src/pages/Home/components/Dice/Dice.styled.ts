@@ -6,114 +6,78 @@ const DICE_SIZE = 28;
 const DOT_SIZE = 5;
 const DOT_MARGIN = 8;
 
-export const DiceWrapper = styled.article<{ $value: number; $flag: boolean }>`
+export const DiceWrapper = styled.article<{
+    $value: number;
+    $flag: boolean;
+    $randomValues: number[];
+}>`
     width: ${DICE_SIZE}px;
     height: ${DICE_SIZE}px;
     transform-style: preserve-3d;
-    animation: ${({ $value, $flag }) => `roll-${$value}-${$flag}`} linear 2s
-        forwards 3;
+    animation: ${({ $value, $flag, $randomValues }) =>
+            `roll-${$value}-${$flag}${$randomValues[$randomValues.length - 1]}`}
+        linear 6s forwards;
 
-    ${({ $value, $flag }) => {
-        switch ($value) {
-            case 1:
-                return css`
-                    @keyframes ${"roll-" + $value + "-" + $flag} {
-                        0% {
-                            transform: rotateX(0) rotateZ(0);
-                        }
+    ${({ $value, $flag, $randomValues }) => css`
+        @keyframes ${"roll-" +
+        $value +
+        "-" +
+        $flag +
+        $randomValues[$randomValues.length - 1]} {
+            0% {
+                transform: rotateX(0) rotateZ(0);
+            }
 
-                        100% {
-                            transform: rotateX(720deg) rotateZ(-720deg);
-                        }
-                    }
-                `;
+            10% {
+                transform: rotateY(${$randomValues[0]}deg)
+                    rotateZ(${$randomValues[1]}deg);
+            }
 
-            case 2:
-                return css`
-                    @keyframes ${"roll-" + $value + "-" + $flag} {
-                        0% {
-                            transform: rotateX(0) rotateZ(0);
-                        }
+            20% {
+                transform: rotateX(${$randomValues[2]}deg)
+                    rotateZ(${$randomValues[3]}deg);
+            }
 
-                        50% {
-                            transform: rotateX(450deg) rotateZ(-720deg);
-                        }
+            30% {
+                transform: rotateY(${$randomValues[4]}deg)
+                    rotateZ(${$randomValues[5]}deg);
+            }
 
-                        100% {
-                            transform: rotateX(720deg) rotateZ(-720deg);
-                        }
-                    }
-                `;
+            40% {
+                transform: rotateY(${$randomValues[6]}deg)
+                    rotateZ(${$randomValues[7]}deg);
+            }
 
-            case 3:
-                return css`
-                    @keyframes ${"roll-" + $value + "-" + $flag} {
-                        0% {
-                            transform: rotateY(0) rotateZ(0);
-                        }
+            50% {
+                transform: rotateX(${$randomValues[8]}deg)
+                    rotateZ(${$randomValues[9]}deg);
+            }
 
-                        50% {
-                            transform: rotateY(-450deg) rotateZ(-1440deg);
-                        }
+            60% {
+                transform: rotateY(${$randomValues[10]}deg)
+                    rotateZ(${$randomValues[11]}deg);
+            }
 
-                        100% {
-                            transform: rotateX(720deg) rotateZ(-720deg);
-                        }
-                    }
-                `;
+            70% {
+                transform: rotateX(${$randomValues[12]}deg)
+                    rotateZ(${$randomValues[13]}deg);
+            }
 
-            case 4:
-                return css`
-                    @keyframes ${"roll-" + $value + "-" + $flag} {
-                        0% {
-                            transform: rotateY(0) rotateZ(0);
-                        }
+            80% {
+                transform: rotateY(${$randomValues[14]}deg)
+                    rotateZ(${$randomValues[15]}deg);
+            }
 
-                        50% {
-                            transform: rotateY(810deg) rotateZ(720deg);
-                        }
+            90% {
+                transform: rotateX(${$randomValues[16]}deg)
+                    rotateZ(${$randomValues[17]}deg);
+            }
 
-                        100% {
-                            transform: rotateX(720deg) rotateZ(-720deg);
-                        }
-                    }
-                `;
-
-            case 5:
-                return css`
-                    @keyframes ${"roll-" + $value + "-" + $flag} {
-                        0% {
-                            transform: rotateX(0) rotateZ(0);
-                        }
-
-                        50% {
-                            transform: rotateX(-810deg) rotateZ(-1080deg);
-                        }
-
-                        100% {
-                            transform: rotateX(720deg) rotateZ(-720deg);
-                        }
-                    }
-                `;
-
-            case 6:
-                return css`
-                    @keyframes ${"roll-" + $value + "-" + $flag} {
-                        0% {
-                            transform: rotateX(0) rotateZ(0);
-                        }
-
-                        50% {
-                            transform: rotateX(-900deg) rotateZ(1080deg);
-                        }
-
-                        100% {
-                            transform: rotateX(720deg) rotateZ(-720deg);
-                        }
-                    }
-                `;
+            100% {
+                transform: rotateX(1080deg) rotateZ(-1080deg);
+            }
         }
-    }}
+    `};
 `;
 
 export const Side = styled.div`

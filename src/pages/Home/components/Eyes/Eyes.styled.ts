@@ -29,6 +29,25 @@ export const DuckEye = css<{ $flag: boolean }>`
         animation: ${({ $flag }) => `blink-${$flag}`} ease 1s forwards,
             ${({ $flag }) => `blink-back-${$flag}`} ease-in 1s forwards 6s;
 
+        b {
+            animation: ${({ $flag }) => `hidden-${$flag}`} ease 1s forwards,
+                ${({ $flag }) => `hidden-back-${$flag}`} ease 1s forwards 6.5s;
+
+            ${({ $flag }) => css`
+                @keyframes ${"hidden-" + $flag} {
+                    100% {
+                        opacity: 0;
+                    }
+                }
+
+                @keyframes ${"hidden-back-" + $flag} {
+                    100% {
+                        opacity: 1;
+                    }
+                }
+            `}
+        }
+
         img {
             position: absolute;
             top: calc(50% - 3px);

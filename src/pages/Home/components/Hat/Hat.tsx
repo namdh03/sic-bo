@@ -1,9 +1,16 @@
+import { useApp } from "@/hooks";
+import { formatTime } from "@/utils";
+
 import { HatWrapper, Time } from "./Hat.styled";
 
 const Hat = () => {
+    const {
+        receivedMessage: { second },
+    } = useApp();
+
     return (
         <HatWrapper>
-            <Time>01:00</Time>
+            <Time>{formatTime(second)}</Time>
         </HatWrapper>
     );
 };

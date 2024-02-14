@@ -4,7 +4,10 @@ import { useApp } from "@/hooks";
 import { Eye, EyesWrapper } from "./Eyes.styled";
 
 const Eyes = () => {
-    const { flag } = useApp();
+    const {
+        flag,
+        receivedMessage: { amountMaxOfAll, amountMinOfAll },
+    } = useApp();
 
     return (
         <EyesWrapper>
@@ -13,7 +16,7 @@ const Eyes = () => {
                     <b>SMALL</b>
                     <img src={icons.dollar} alt="dollar" />
                 </span>
-                <span>7.000.000</span>
+                <span>{amountMinOfAll}</span>
             </Eye>
 
             <Eye $flag={flag}>
@@ -21,7 +24,7 @@ const Eyes = () => {
                     <b>BIG</b>
                     <img src={icons.dollar} alt="dollar" />
                 </span>
-                <span>7.000.000</span>
+                <span>{amountMaxOfAll}</span>
             </Eye>
         </EyesWrapper>
     );

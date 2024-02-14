@@ -1,15 +1,23 @@
 import { Dispatch } from "react";
 
-import { AppActionType } from "./app.enum";
+import { AppActionType, GameStatus } from "./app.enum";
 
-export interface DiceValue {
-    left: number;
-    center: number;
-    right: number;
+export interface DiceResult {
+    dice1: number;
+    dice2: number;
+    dice3: number;
+}
+
+export interface ReceivedMessage {
+    amountMaxOfAll: number;
+    amountMinOfAll: number;
+    diceResult: DiceResult;
+    gameStatus: GameStatus;
+    second: number;
 }
 
 export interface AppState {
-    value: DiceValue;
+    receivedMessage: ReceivedMessage;
     flag: boolean;
 }
 
@@ -23,6 +31,9 @@ export interface AppContextType extends AppState {
 }
 
 export interface ReducerHandler {
-    SET_VALUE(state: AppState, action: PayloadAction<AppState>): AppState;
+    SET_RECEIVED_MESSAGE(
+        state: AppState,
+        action: PayloadAction<AppState>
+    ): AppState;
     SWITCH_FLAG(state: AppState): AppState;
 }

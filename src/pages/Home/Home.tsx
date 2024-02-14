@@ -1,7 +1,4 @@
-import { useSubscription } from "react-stomp-hooks";
-
 import images from "@/assets/images";
-import configs from "@/configs";
 
 import BetList from "./components/BetList";
 import Eyes from "./components/Eyes";
@@ -11,10 +8,6 @@ import Quack from "./components/Quack";
 import { Board, Face, FaceInner, HomeWrapper } from "./Home.styled";
 
 const Home = () => {
-    useSubscription(configs.socket.start, (message) =>
-        console.log("Received message:", message)
-    );
-
     return (
         <HomeWrapper>
             <Money />

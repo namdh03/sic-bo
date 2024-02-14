@@ -1,10 +1,17 @@
+import { GameStatus } from "./app.enum";
 import { AppState } from "./app.interface";
 
 const initialState: AppState = {
-    value: {
-        left: 0,
-        center: 0,
-        right: 0,
+    receivedMessage: {
+        amountMaxOfAll: 0,
+        amountMinOfAll: 0,
+        diceResult: {
+            dice1: 0,
+            dice2: 0,
+            dice3: 0,
+        },
+        gameStatus: GameStatus.CLOSED,
+        second: 0,
     },
     flag: false,
 };

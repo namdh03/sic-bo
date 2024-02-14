@@ -1,12 +1,17 @@
 import { AppActionType } from "./app.enum";
 import initialState from "./app.initialState";
-import { AppState, PayloadAction, ReducerHandler } from "./app.interface";
+import {
+    AppState,
+    PayloadAction,
+    ReceivedMessage,
+    ReducerHandler,
+} from "./app.interface";
 
 // Reducer
 const reducerHandlers: ReducerHandler = {
-    SET_VALUE: (state, action) => ({
+    SET_RECEIVED_MESSAGE: (state, action) => ({
         ...state,
-        value: action.payload.value,
+        receivedMessage: action.payload.receivedMessage,
     }),
 
     SWITCH_FLAG: (state) => ({
@@ -22,13 +27,13 @@ export function reducer(state: AppState, action: PayloadAction<AppState>) {
 }
 
 // Actions
-export const setValue = (
-    value: AppState["value"]
+export const setReceivedMessage = (
+    receivedMessage: ReceivedMessage
 ): PayloadAction<AppState> => ({
-    type: AppActionType.SET_VALUE,
+    type: AppActionType.SET_RECEIVED_MESSAGE,
     payload: {
         ...initialState,
-        value,
+        receivedMessage: receivedMessage,
     },
 });
 
