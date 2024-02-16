@@ -13,11 +13,6 @@ const reducerHandlers: ReducerHandler = {
         ...state,
         receivedMessage: action.payload.receivedMessage,
     }),
-
-    SWITCH_FLAG: (state) => ({
-        ...state,
-        flag: !state.flag,
-    }),
 };
 
 export function reducer(state: AppState, action: PayloadAction<AppState>) {
@@ -35,9 +30,4 @@ export const setReceivedMessage = (
         ...initialState,
         receivedMessage: receivedMessage,
     },
-});
-
-export const switchFlag = (): PayloadAction<AppState> => ({
-    type: AppActionType.SWITCH_FLAG,
-    payload: initialState,
 });

@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { GameStatus } from "@/contexts/app/app.enum";
+import { GameStyledProps } from "@/contexts/app/app.interface";
 import theme from "@/themes";
 
 export const EyesWrapper = styled.div`
@@ -12,7 +14,7 @@ export const EyesWrapper = styled.div`
     }
 `;
 
-export const DuckEye = css<{ $flag: boolean }>`
+export const DuckEye = css<GameStyledProps>`
     position: relative;
     min-width: 110px;
     padding: 24px;
@@ -26,27 +28,6 @@ export const DuckEye = css<{ $flag: boolean }>`
     span:first-child {
         display: inline-block;
         transform-style: preserve-3d;
-        animation: ${({ $flag }) => `blink-${$flag}`} ease 1s forwards,
-            ${({ $flag }) => `blink-back-${$flag}`} ease-in 1s forwards 6s;
-
-        b {
-            animation: ${({ $flag }) => `hidden-${$flag}`} ease 1s forwards,
-                ${({ $flag }) => `hidden-back-${$flag}`} ease 1s forwards 6.5s;
-
-            ${({ $flag }) => css`
-                @keyframes ${"hidden-" + $flag} {
-                    100% {
-                        opacity: 0;
-                    }
-                }
-
-                @keyframes ${"hidden-back-" + $flag} {
-                    100% {
-                        opacity: 1;
-                    }
-                }
-            `}
-        }
 
         img {
             position: absolute;
@@ -55,60 +36,105 @@ export const DuckEye = css<{ $flag: boolean }>`
             transform: rotateY(-90deg) translate(-50%, -50%);
             width: 40px;
             height: 40px;
-            animation: ${({ $flag }) => `slip-${$flag}`} ease 1s forwards 1s,
-                ${({ $flag }) => `spin-${$flag}`} ease 1s forwards 2s 3,
-                ${({ $flag }) => `slip-back-${$flag}`} ease 1s forwards 5s;
-
-            ${({ $flag }) => css`
-                @keyframes ${"slip-" + $flag} {
-                    100% {
-                        transform: rotateY(-90deg) translate(0, -50%);
-                    }
-                }
-
-                @keyframes ${"slip-back-" + $flag} {
-                    100% {
-                        transform: rotateY(270deg) translate(-50%, -50%);
-                    }
-                }
-
-                @keyframes ${"spin-" + $flag} {
-                    0% {
-                        transform: rotateY(-90deg) translate(0, -50%);
-                    }
-
-                    25% {
-                        transform: rotateY(0deg) translate(0, -50%);
-                    }
-
-                    50% {
-                        transform: rotateY(90deg) translate(0, -50%);
-                    }
-
-                    75% {
-                        transform: rotateY(180deg) translate(0, -50%);
-                    }
-
-                    100% {
-                        transform: rotateY(270deg) translate(0, -50%);
-                    }
-                }
-            `}
         }
 
-        ${({ $flag }) => css`
-            @keyframes ${"blink-" + $flag} {
-                100% {
-                    transform: rotateY(90deg);
-                }
-            }
+        ${({ $gameStatus }) => {
+            switch ($gameStatus) {
+                case GameStatus.STARTING:
+                case GameStatus.BET_LOCKED:
+                    return css`
+                        animation: blink ease 1s forwards;
 
-            @keyframes ${"blink-back-" + $flag} {
-                100% {
-                    transform: rotateY(0deg);
-                }
+                        @keyframes blink {
+                            100% {
+                                transform: rotateY(90deg);
+                            }
+                        }
+
+                        b {
+                            animation: hidden ease 1s forwards;
+
+                            @keyframes hidden {
+                                100% {
+                                    opacity: 0;
+                                }
+                            }
+                        }
+
+                        img {
+                            animation: slide-away ease 1s forwards 1s,
+                                spin ease 1s infinite 2s;
+
+                            @keyframes spin {
+                                0% {
+                                    transform: rotateY(-90deg)
+                                        translate(0, -50%);
+                                }
+
+                                25% {
+                                    transform: rotateY(0deg) translate(0, -50%);
+                                }
+
+                                50% {
+                                    transform: rotateY(90deg) translate(0, -50%);
+                                }
+
+                                75% {
+                                    transform: rotateY(180deg)
+                                        translate(0, -50%);
+                                }
+
+                                100% {
+                                    transform: rotateY(270deg)
+                                        translate(0, -50%);
+                                }
+                            }
+
+                            @keyframes slide-away {
+                                100% {
+                                    transform: rotateY(-90deg)
+                                        translate(0, -50%);
+                                }
+                            }
+                        }
+                    `;
+
+                case GameStatus.CLOSED:
+                    return css`
+                        transform: rotateY(90deg);
+                        animation: blink-back ease 1s forwards 1s;
+
+                        @keyframes blink-back {
+                            100% {
+                                transform: rotateY(0deg);
+                            }
+                        }
+
+                        b {
+                            opacity: 0;
+                            animation: show ease 1s forwards 1s;
+
+                            @keyframes show {
+                                100% {
+                                    opacity: 1;
+                                }
+                            }
+                        }
+
+                        img {
+                            transform: rotateY(-90deg) translate(0, -50%);
+                            animation: slide-back ease 1s forwards;
+
+                            @keyframes slide-back {
+                                100% {
+                                    transform: rotateY(-90deg)
+                                        translate(-50%, -50%);
+                                }
+                            }
+                        }
+                    `;
             }
-        `}
+        }}
     }
 
     span:last-child {
@@ -124,6 +150,6 @@ export const DuckEye = css<{ $flag: boolean }>`
     }
 `;
 
-export const Eye = styled.div<{ $flag: boolean }>`
+export const Eye = styled.div<GameStyledProps>`
     ${DuckEye}
 `;

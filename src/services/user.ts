@@ -1,4 +1,4 @@
-import { post } from "./api";
+import { get, post } from "./api";
 
 type SignInFormType = {
     username: string;
@@ -6,5 +6,9 @@ type SignInFormType = {
 };
 
 export const signIn = (account: SignInFormType) => {
-    return post("/api/v1/auth/login", account);
+    return post("/api/v1/auth/signin", account);
+};
+
+export const getUser = () => {
+    return get("/api/v1/user");
 };

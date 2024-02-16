@@ -3,7 +3,11 @@ import { Dispatch } from "react";
 import { AuthActionType } from "./auth.enum";
 
 export interface User {
-    id: string;
+    wallet: number;
+    max: number;
+    min: number;
+    gameResult: null;
+    amount: number;
 }
 
 export interface AuthState {

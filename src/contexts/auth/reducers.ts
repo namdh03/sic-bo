@@ -1,5 +1,11 @@
+import Cookies from "universal-cookie";
+
+import configs from "@/configs";
+
 import { AuthActionType } from "./auth.enum";
 import { AuthState, PayloadAction, ReducerHandler } from "./auth.interface";
+
+const cookies = new Cookies(null, { path: "/" });
 
 // Reducer
 const reducerHandlers: ReducerHandler = {
@@ -55,6 +61,8 @@ export function signIn(payload: AuthState): PayloadAction<AuthState> {
 }
 
 export function signOut(): PayloadAction<AuthState> {
+    cookies.remove(configs.cookies.token);
+
     return {
         type: AuthActionType.SIGN_OUT,
         payload: {

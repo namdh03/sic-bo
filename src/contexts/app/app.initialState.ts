@@ -11,9 +11,8 @@ const initialState: AppState = {
             dice3: 0,
         },
         gameStatus: GameStatus.CLOSED,
-        second: 0,
+        second: -1,
     },
-    flag: false,
 };
 
 export default initialState;

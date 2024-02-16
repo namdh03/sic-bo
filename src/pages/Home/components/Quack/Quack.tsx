@@ -12,18 +12,17 @@ import {
 
 const Actions = () => {
     const {
-        receivedMessage: { diceResult },
-        flag,
+        receivedMessage: { diceResult, gameStatus },
     } = useApp();
 
     return (
         <QuackWrapper>
             <LeftCheek>QUACK</LeftCheek>
-            <Lip $flag={flag}>
+            <Lip $gameStatus={gameStatus}>
                 <Mouth>
-                    <Dice flag={flag} value={diceResult.dice1} />
-                    <Dice flag={flag} value={diceResult.dice2} />
-                    <Dice flag={flag} value={diceResult.dice3} />
+                    <Dice value={diceResult.dice1} />
+                    <Dice value={diceResult.dice2} />
+                    <Dice value={diceResult.dice3} />
                 </Mouth>
             </Lip>
             <RightCheek>QUACK</RightCheek>

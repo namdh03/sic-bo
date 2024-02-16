@@ -5,13 +5,12 @@ import { Eye, EyesWrapper } from "./Eyes.styled";
 
 const Eyes = () => {
     const {
-        flag,
-        receivedMessage: { amountMaxOfAll, amountMinOfAll },
+        receivedMessage: { amountMaxOfAll, amountMinOfAll, gameStatus },
     } = useApp();
 
     return (
         <EyesWrapper>
-            <Eye $flag={flag}>
+            <Eye $gameStatus={gameStatus}>
                 <span>
                     <b>SMALL</b>
                     <img src={icons.dollar} alt="dollar" />
@@ -19,7 +18,7 @@ const Eyes = () => {
                 <span>{amountMinOfAll}</span>
             </Eye>
 
-            <Eye $flag={flag}>
+            <Eye $gameStatus={gameStatus}>
                 <span>
                     <b>BIG</b>
                     <img src={icons.dollar} alt="dollar" />

@@ -1,83 +1,83 @@
 import styled, { css } from "styled-components";
 
+import { GameStatus } from "@/contexts/app/app.enum";
 import theme from "@/themes";
+
+import { DiceStyledProps } from "./Dice.type";
 
 const DICE_SIZE = 28;
 const DOT_SIZE = 5;
 const DOT_MARGIN = 8;
 
-export const DiceWrapper = styled.article<{
-    $value: number;
-    $flag: boolean;
-    $randomValues: number[];
-}>`
+export const DiceWrapper = styled.article<DiceStyledProps>`
     width: ${DICE_SIZE}px;
     height: ${DICE_SIZE}px;
     transform-style: preserve-3d;
-    animation: ${({ $value, $flag, $randomValues }) =>
-            `roll-${$value}-${$flag}${$randomValues[$randomValues.length - 1]}`}
-        linear 6s forwards;
 
-    ${({ $value, $flag, $randomValues }) => css`
-        @keyframes ${"roll-" +
-        $value +
-        "-" +
-        $flag +
-        $randomValues[$randomValues.length - 1]} {
-            0% {
-                transform: rotateX(0) rotateZ(0);
-            }
+    ${({ $gameStatus, $value, $randomValues }) =>
+        ($gameStatus === GameStatus.STARTING ||
+            $gameStatus === GameStatus.BET_LOCKED) &&
+        css`
+            animation: roll-${$value}-${$randomValues[$randomValues.length - 1]}
+                linear 6s infinite;
 
-            10% {
-                transform: rotateY(${$randomValues[0]}deg)
-                    rotateZ(${$randomValues[1]}deg);
-            }
+            @keyframes roll-${$value}-${$randomValues[
+                $randomValues.length - 1
+            ]} {
+                0% {
+                    transform: rotateX(0) rotateZ(0);
+                }
 
-            20% {
-                transform: rotateX(${$randomValues[2]}deg)
-                    rotateZ(${$randomValues[3]}deg);
-            }
+                10% {
+                    transform: rotateY(${$randomValues[0]}deg)
+                        rotateZ(${$randomValues[1]}deg);
+                }
 
-            30% {
-                transform: rotateY(${$randomValues[4]}deg)
-                    rotateZ(${$randomValues[5]}deg);
-            }
+                20% {
+                    transform: rotateX(${$randomValues[2]}deg)
+                        rotateZ(${$randomValues[3]}deg);
+                }
 
-            40% {
-                transform: rotateY(${$randomValues[6]}deg)
-                    rotateZ(${$randomValues[7]}deg);
-            }
+                30% {
+                    transform: rotateY(${$randomValues[4]}deg)
+                        rotateZ(${$randomValues[5]}deg);
+                }
 
-            50% {
-                transform: rotateX(${$randomValues[8]}deg)
-                    rotateZ(${$randomValues[9]}deg);
-            }
+                40% {
+                    transform: rotateY(${$randomValues[6]}deg)
+                        rotateZ(${$randomValues[7]}deg);
+                }
 
-            60% {
-                transform: rotateY(${$randomValues[10]}deg)
-                    rotateZ(${$randomValues[11]}deg);
-            }
+                50% {
+                    transform: rotateX(${$randomValues[8]}deg)
+                        rotateZ(${$randomValues[9]}deg);
+                }
 
-            70% {
-                transform: rotateX(${$randomValues[12]}deg)
-                    rotateZ(${$randomValues[13]}deg);
-            }
+                60% {
+                    transform: rotateY(${$randomValues[10]}deg)
+                        rotateZ(${$randomValues[11]}deg);
+                }
 
-            80% {
-                transform: rotateY(${$randomValues[14]}deg)
-                    rotateZ(${$randomValues[15]}deg);
-            }
+                70% {
+                    transform: rotateX(${$randomValues[12]}deg)
+                        rotateZ(${$randomValues[13]}deg);
+                }
 
-            90% {
-                transform: rotateX(${$randomValues[16]}deg)
-                    rotateZ(${$randomValues[17]}deg);
-            }
+                80% {
+                    transform: rotateY(${$randomValues[14]}deg)
+                        rotateZ(${$randomValues[15]}deg);
+                }
 
-            100% {
-                transform: rotateX(1080deg) rotateZ(-1080deg);
+                90% {
+                    transform: rotateX(${$randomValues[16]}deg)
+                        rotateZ(${$randomValues[17]}deg);
+                }
+
+                100% {
+                    transform: rotateX(1080deg) rotateZ(-1080deg);
+                }
             }
-        }
-    `};
+        `}
 `;
 
 export const Side = styled.div`

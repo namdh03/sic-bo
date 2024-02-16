@@ -18,7 +18,6 @@ export interface ReceivedMessage {
 
 export interface AppState {
     receivedMessage: ReceivedMessage;
-    flag: boolean;
 }
 
 export interface PayloadAction<T> {
@@ -35,5 +34,8 @@ export interface ReducerHandler {
         state: AppState,
         action: PayloadAction<AppState>
     ): AppState;
-    SWITCH_FLAG(state: AppState): AppState;
+}
+
+export interface GameStyledProps {
+    $gameStatus: GameStatus;
 }
