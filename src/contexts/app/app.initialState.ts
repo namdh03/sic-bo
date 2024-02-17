@@ -13,6 +13,10 @@ const initialState: AppState = {
         gameStatus: GameStatus.CLOSED,
         second: -1,
     },
+    bet: {
+        betType: undefined,
+        amount: 0,
+    },
 };
 
 export default initialState;

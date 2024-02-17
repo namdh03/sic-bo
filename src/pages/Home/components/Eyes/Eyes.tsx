@@ -1,9 +1,12 @@
+import { memo } from "react";
+
 import icons from "@/assets/icons";
 import { useApp } from "@/hooks";
+import { formatCurrency } from "@/utils";
 
 import { Eye, EyesWrapper } from "./Eyes.styled";
 
-const Eyes = () => {
+const Eyes = memo(() => {
     const {
         receivedMessage: { amountMaxOfAll, amountMinOfAll, gameStatus },
     } = useApp();
@@ -15,7 +18,7 @@ const Eyes = () => {
                     <b>SMALL</b>
                     <img src={icons.dollar} alt="dollar" />
                 </span>
-                <span>{amountMinOfAll}</span>
+                <span>{formatCurrency(amountMinOfAll)}</span>
             </Eye>
 
             <Eye $gameStatus={gameStatus}>
@@ -23,10 +26,10 @@ const Eyes = () => {
                     <b>BIG</b>
                     <img src={icons.dollar} alt="dollar" />
                 </span>
-                <span>{amountMaxOfAll}</span>
+                <span>{formatCurrency(amountMaxOfAll)}</span>
             </Eye>
         </EyesWrapper>
     );
-};
+});
 
 export default Eyes;

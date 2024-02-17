@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 
-import { AppActionType, GameStatus } from "./app.enum";
+import { AppActionType, BetType, GameStatus } from "./app.enum";
 
 export interface DiceResult {
     dice1: number;
@@ -16,8 +16,14 @@ export interface ReceivedMessage {
     second: number;
 }
 
+export interface Bet {
+    betType?: BetType;
+    amount?: number | string;
+}
+
 export interface AppState {
     receivedMessage: ReceivedMessage;
+    bet: Bet;
 }
 
 export interface PayloadAction<T> {
@@ -34,6 +40,8 @@ export interface ReducerHandler {
         state: AppState,
         action: PayloadAction<AppState>
     ): AppState;
+    SET_BET_TYPE(state: AppState, action: PayloadAction<AppState>): AppState;
+    SET_BET_AMOUNT(state: AppState, action: PayloadAction<AppState>): AppState;
 }
 
 export interface GameStyledProps {

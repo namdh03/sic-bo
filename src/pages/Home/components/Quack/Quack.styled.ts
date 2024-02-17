@@ -4,6 +4,8 @@ import { GameStatus } from "@/contexts/app/app.enum";
 import { GameStyledProps } from "@/contexts/app/app.interface";
 import theme from "@/themes";
 
+import { DuckCheekStyleProps } from "./Quack.type";
+
 export const QuackWrapper = styled.footer`
     display: flex;
     align-items: center;
@@ -101,19 +103,28 @@ export const Mouth = styled.div`
     overflow: hidden;
 `;
 
-const DuckCheek = css`
+const DuckCheek = css<DuckCheekStyleProps>`
     padding: 16px;
     background-color: ${theme.colors.primary};
     border-radius: 999px;
+    border: 2px solid transparent;
     color: ${theme.colors.white};
     font-size: 1.4rem;
     font-weight: 600;
+    cursor: pointer;
+
+    ${({ $type, $betType }) => {
+        if ($type === $betType)
+            return css`
+                border-color: ${theme.colors.white};
+            `;
+    }}
 `;
 
-export const LeftCheek = styled.div`
+export const LeftCheek = styled.div<DuckCheekStyleProps>`
     ${DuckCheek}
 `;
 
-export const RightCheek = styled.div`
+export const RightCheek = styled.div<DuckCheekStyleProps>`
     ${DuckCheek}
 `;

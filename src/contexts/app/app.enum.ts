@@ -1,5 +1,7 @@
 export enum AppActionType {
     SET_RECEIVED_MESSAGE = "SET_RECEIVED_MESSAGE",
+    SET_BET_TYPE = "SET_BET_TYPE",
+    SET_BET_AMOUNT = "SET_BET_AMOUNT",
 }
 
 export enum GameStatus {
@@ -11,4 +13,9 @@ export enum GameStatus {
 export enum GameResult {
     WIN = "WIN",
     LOSE = "LOSE",
+}
+
+export enum BetType {
+    TAI = "TAI",
+    XIU = "XIU",
 }
