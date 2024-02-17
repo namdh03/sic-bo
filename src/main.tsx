@@ -14,11 +14,11 @@ import App from "./App.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <StompSessionProvider url={configs.publicRuntime.SOCKET_URL}>
+            <Toaster />
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
                 <AuthProvider>
                     <AppProvider>
-                        <Toaster />
                         <App />
                     </AppProvider>
                 </AuthProvider>

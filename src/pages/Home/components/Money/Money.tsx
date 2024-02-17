@@ -7,22 +7,24 @@ const Money = () => {
     const { user } = useAuth();
 
     return (
-        <MoneyWrapper>
-            <MyWallet>
-                <span>{user?.wallet}</span>
-                <img src={icons.dollar} alt="dollar" />
-            </MyWallet>
+        user && (
+            <MoneyWrapper>
+                <MyWallet>
+                    <span>{user.wallet}</span>
+                    <img src={icons.dollar} alt="dollar" />
+                </MyWallet>
 
-            <SmallWallet>
-                <span>Small: </span>
-                <span>{user?.min}</span>
-            </SmallWallet>
+                <SmallWallet>
+                    <span>Small: </span>
+                    <span>{user.min}</span>
+                </SmallWallet>
 
-            <BigWallet>
-                <span>Big: </span>
-                <span>{user?.max}</span>
-            </BigWallet>
-        </MoneyWrapper>
+                <BigWallet>
+                    <span>Big: </span>
+                    <span>{user.max}</span>
+                </BigWallet>
+            </MoneyWrapper>
+        )
     );
 };
 

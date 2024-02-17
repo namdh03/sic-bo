@@ -39,3 +39,11 @@ export const FaceInner = styled.div`
     border: 1px solid ${theme.colors.primary};
     border-radius: 999px;
 `;
+
+export const SignOut = styled.img`
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+    cursor: pointer;
+`;

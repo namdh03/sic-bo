@@ -7,3 +7,8 @@ export enum GameStatus {
     BET_LOCKED = "BET_LOCKED",
     CLOSED = "CLOSED",
 }
+
+export enum GameResult {
+    WIN = "WIN",
+    LOSE = "LOSE",
+}
