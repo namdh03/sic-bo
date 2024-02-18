@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
@@ -6,6 +7,7 @@ import configs from "@/configs";
 import { signIn } from "@/contexts/auth/reducers";
 import { useAuth } from "@/hooks";
 import { getUser, signIn as signInAPI } from "@/services/user";
+import { AppError, AxiosError } from "@/utils/interface";
 
 const cookies = new Cookies(null, { path: "/" });
 
@@ -30,7 +32,8 @@ const SignIn = () => {
 
             navigate(configs.routes.home);
         } catch (error) {
-            console.log(error);
+            const e = error as AxiosError<AppError>;
+            toast.error(e.response?.data.message || "Something went wrong");
         }
     };
 

@@ -1,8 +1,9 @@
-import { ModalActions, ModalWrapper } from "./Modal.styled";
+import { ModalActions, ModalLoading, ModalWrapper } from "./Modal.styled";
 import { ModalProps } from "./Modal.type";
 
 const Modal = ({
     isOpen,
+    loading,
     title,
     description,
     confirmText,
@@ -21,7 +22,9 @@ const Modal = ({
                         <button onClick={onCancel}>{cancelText}</button>
                     )}
                     {confirmText && (
-                        <button onClick={onConfirm}>{confirmText}</button>
+                        <button onClick={onConfirm}>
+                            {loading ? <ModalLoading /> : confirmText}
+                        </button>
                     )}
                 </ModalActions>
             </ModalWrapper>

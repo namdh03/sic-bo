@@ -49,7 +49,8 @@ export const ModalActions = styled.div`
         justify-content: center;
         min-width: 110px;
         padding: 0 6px;
-        line-height: 28px;
+        height: 30px;
+        line-height: 30px;
         border-radius: 10px;
         border: 2px solid transparent;
         background-color: ${theme.colors.primary};
@@ -60,6 +61,27 @@ export const ModalActions = styled.div`
 
         &:active {
             border-color: ${theme.colors.white};
+        }
+    }
+`;
+
+export const ModalLoading = styled.div`
+    width: 20px;
+    height: 20px;
+    border: 3px solid ${theme.colors.white};
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
         }
     }
 `;

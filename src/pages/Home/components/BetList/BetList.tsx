@@ -1,27 +1,73 @@
-import { memo } from "react";
+import { memo, useState } from "react";
+import toast from "react-hot-toast";
 
 import Modal from "@/components/Modal";
 import { BetType } from "@/contexts/app/app.enum";
 import { setBetAmount } from "@/contexts/app/reducer";
-import { useApp } from "@/hooks";
+import { signIn } from "@/contexts/auth/reducers";
+import { useApp, useAuth } from "@/hooks";
+import { singleBet } from "@/services/game";
 import { formatCurrency } from "@/utils";
+import { AppError, AxiosError } from "@/utils/interface";
 
 import { BestItem, BetList } from "./BetList.styled";
 
 const betList = [1000, 2000, 5000, 10000, 20000, 50000];
 
 const Bet = memo(() => {
+    const { user, dispatch: authDispatch } = useAuth();
     const { bet, dispatch } = useApp();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSetAmount = (amount: number) => {
         dispatch(setBetAmount(amount));
         if (amount === bet.amount) dispatch(setBetAmount(0));
     };
 
+    const handleSingleBet = async () => {
+        try {
+            if (!user || !bet.amount || !bet.betType) return;
+            setLoading(true);
+
+            const {
+                data: { data },
+            } = await singleBet({
+                betAmount: Number(bet.amount),
+                betType: bet.betType,
+            });
+
+            authDispatch(
+                signIn({
+                    user: {
+                        ...user,
+                        wallet: data.balance,
+                        min:
+                            data.betType === BetType.XIU
+                                ? data.betAmount
+                                : user.min,
+                        max:
+                            data.betType === BetType.TAI
+                                ? data.betAmount
+                                : user.max,
+                    },
+                })
+            );
+
+            toast.success("Bet success");
+        } catch (error) {
+            const e = error as AxiosError<AppError>;
+            toast.error(e.response?.data.message || "Something went wrong");
+        } finally {
+            setLoading(false);
+            dispatch(setBetAmount(0));
+        }
+    };
+
     return (
         <>
             <Modal
                 isOpen={!!bet.amount}
+                loading={loading}
                 title={`BET: ${
                     bet.betType === BetType.TAI
                         ? "BIG"
@@ -31,6 +77,7 @@ const Bet = memo(() => {
                 }`}
                 description={bet.amount?.toLocaleString("vi-VN")}
                 confirmText="ACCEPT"
+                onConfirm={handleSingleBet}
             />
 
             <BetList $betType={bet.betType}>

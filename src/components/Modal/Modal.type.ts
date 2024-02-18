@@ -1,5 +1,6 @@
 export type ModalProps = {
     isOpen: boolean;
+    loading?: boolean
     title?: string;
     description?: string;
     confirmText?: string;

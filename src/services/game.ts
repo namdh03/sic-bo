@@ -7,6 +7,6 @@ type BetParams = {
     betType: BetType;
 };
 
-export const bet = (betParams: BetParams) => {
+export const singleBet = (betParams: BetParams) => {
     return post("/api/v1/game/bet", betParams);
 };
