@@ -24,6 +24,31 @@ const Bet = memo(() => {
         if (amount === bet.amount) dispatch(setBetAmount(0));
     };
 
+    const handleDispatchAmount = (
+        balance: number,
+        betType: BetType,
+        betAmount: number
+    ) => {
+        if (!user) return;
+
+        authDispatch(
+            signIn({
+                user: {
+                    ...user,
+                    wallet: balance,
+                    min:
+                        betType === BetType.XIU
+                            ? user.min + betAmount
+                            : user.min,
+                    max:
+                        betType === BetType.TAI
+                            ? user.max + betAmount
+                            : user.max,
+                },
+            })
+        );
+    };
+
     const handleBetSingle = async () => {
         try {
             if (!user || !bet.amount || !bet.betType) return;
@@ -36,22 +61,7 @@ const Bet = memo(() => {
                 betType: bet.betType,
             });
 
-            authDispatch(
-                signIn({
-                    user: {
-                        ...user,
-                        wallet: data.balance,
-                        min:
-                            data.betType === BetType.XIU
-                                ? data.betAmount
-                                : user.min,
-                        max:
-                            data.betType === BetType.TAI
-                                ? data.betAmount
-                                : user.max,
-                    },
-                })
-            );
+            handleDispatchAmount(data.balance, bet.betType, data.betAmount);
 
             toast.success("Bet success");
         } catch (error) {
@@ -72,22 +82,7 @@ const Bet = memo(() => {
                 data: { data },
             } = await betAll(bet.betType);
 
-            authDispatch(
-                signIn({
-                    user: {
-                        ...user,
-                        wallet: data.balance,
-                        min:
-                            data.betType === BetType.XIU
-                                ? data.betAmount
-                                : user.min,
-                        max:
-                            data.betType === BetType.TAI
-                                ? data.betAmount
-                                : user.max,
-                    },
-                })
-            );
+            handleDispatchAmount(data.balance, bet.betType, data.betAmount);
 
             toast.success("Bet success");
         } catch (error) {
