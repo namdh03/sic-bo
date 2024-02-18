@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 import icons from "@/assets/icons";
 import images from "@/assets/images";
+import configs from "@/configs";
 import { signOut } from "@/contexts/auth/reducers";
 import { useAuth } from "@/hooks";
 
@@ -8,11 +11,21 @@ import Eyes from "./components/Eyes";
 import Hat from "./components/Hat";
 import Money from "./components/Money";
 import Quack from "./components/Quack";
-import { Board, Face, FaceInner, HomeWrapper, SignOut } from "./Home.styled";
+import {
+    Board,
+    Face,
+    FaceInner,
+    HomeWrapper,
+    SignIn,
+    SignOut,
+} from "./Home.styled";
 
 const Home = () => {
+    const navigate = useNavigate();
     const { user, dispatch } = useAuth();
+
     const handleSignOut = () => dispatch(signOut());
+    const handleSignIn = () => navigate(configs.routes.signIn);
 
     return (
         <HomeWrapper>
@@ -29,11 +42,17 @@ const Home = () => {
                 </Face>
             </Board>
 
-            {user && (
+            {user ? (
                 <SignOut
-                    src={icons.logout}
+                    src={icons.signOut}
                     alt="logout-icon"
                     onClick={handleSignOut}
+                />
+            ) : (
+                <SignIn
+                    src={icons.signOut}
+                    alt="logout-icon"
+                    onClick={handleSignIn}
                 />
             )}
         </HomeWrapper>

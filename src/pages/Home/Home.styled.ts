@@ -47,3 +47,12 @@ export const SignOut = styled.img`
     padding: 12px;
     cursor: pointer;
 `;
+
+export const SignIn = styled.img`
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+    cursor: pointer;
+    transform: rotate(180deg);
+`;

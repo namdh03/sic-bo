@@ -1,6 +1,6 @@
 import dollar from "@/assets/icons/dollar.svg";
-import logout from "@/assets/icons/logout.svg";
+import signOut from "@/assets/icons/sign-out.svg";
 
-const icons = { dollar, logout };
+const icons = { dollar, signOut };
 
 export default icons;
