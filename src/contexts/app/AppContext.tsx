@@ -65,8 +65,6 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                         data: { data },
                     } = await getUser();
 
-                    console.log(data);
-
                     authDispatch(signIn({ user: data }));
                 } catch (error) {
                     const e = error as AxiosError<AppError>;

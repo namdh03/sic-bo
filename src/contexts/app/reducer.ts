@@ -54,7 +54,9 @@ export const setBetType = (betType?: BetType): PayloadAction<AppState> => ({
     },
 });
 
-export const setBetAmount = (amount: number): PayloadAction<AppState> => ({
+export const setBetAmount = (
+    amount: number | string
+): PayloadAction<AppState> => ({
     type: AppActionType.SET_BET_AMOUNT,
     payload: {
         ...initialState,

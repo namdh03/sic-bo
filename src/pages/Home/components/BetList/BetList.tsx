@@ -6,7 +6,7 @@ import { BetType } from "@/contexts/app/app.enum";
 import { setBetAmount } from "@/contexts/app/reducer";
 import { signIn } from "@/contexts/auth/reducers";
 import { useApp, useAuth } from "@/hooks";
-import { singleBet } from "@/services/game";
+import { betAll, betSingle } from "@/services/game";
 import { formatCurrency } from "@/utils";
 import { AppError, AxiosError } from "@/utils/interface";
 
@@ -19,22 +19,58 @@ const Bet = memo(() => {
     const { bet, dispatch } = useApp();
     const [loading, setLoading] = useState<boolean>(false);
 
-    const handleSetAmount = (amount: number) => {
+    const handleSetAmount = (amount: number | string) => {
         dispatch(setBetAmount(amount));
         if (amount === bet.amount) dispatch(setBetAmount(0));
     };
 
-    const handleSingleBet = async () => {
+    const handleBetSingle = async () => {
         try {
             if (!user || !bet.amount || !bet.betType) return;
             setLoading(true);
 
             const {
                 data: { data },
-            } = await singleBet({
+            } = await betSingle({
                 betAmount: Number(bet.amount),
                 betType: bet.betType,
             });
+
+            authDispatch(
+                signIn({
+                    user: {
+                        ...user,
+                        wallet: data.balance,
+                        min:
+                            data.betType === BetType.XIU
+                                ? data.betAmount
+                                : user.min,
+                        max:
+                            data.betType === BetType.TAI
+                                ? data.betAmount
+                                : user.max,
+                    },
+                })
+            );
+
+            toast.success("Bet success");
+        } catch (error) {
+            const e = error as AxiosError<AppError>;
+            toast.error(e.response?.data.message || "Something went wrong");
+        } finally {
+            setLoading(false);
+            dispatch(setBetAmount(0));
+        }
+    };
+
+    const handleBetAll = async () => {
+        try {
+            if (!user || !bet.amount || !bet.betType) return;
+            setLoading(true);
+
+            const {
+                data: { data },
+            } = await betAll(bet.betType);
 
             authDispatch(
                 signIn({
@@ -77,7 +113,9 @@ const Bet = memo(() => {
                 }`}
                 description={bet.amount?.toLocaleString("vi-VN")}
                 confirmText="ACCEPT"
-                onConfirm={handleSingleBet}
+                onConfirm={
+                    bet.amount === "ALL" ? handleBetAll : handleBetSingle
+                }
             />
 
             <BetList $betType={bet.betType}>
@@ -92,7 +130,11 @@ const Bet = memo(() => {
                     </BestItem>
                 ))}
 
-                <BestItem $currentBet={bet.amount} $valueBet="ALL">
+                <BestItem
+                    $currentBet={bet.amount}
+                    $valueBet="ALL"
+                    onClick={() => handleSetAmount("ALL")}
+                >
                     ALL
                 </BestItem>
             </BetList>
