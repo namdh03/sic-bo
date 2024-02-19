@@ -1,13 +1,14 @@
 import { Dispatch } from "react";
 
-import { AuthActionType } from "./auth.enum";
+import { AuthActionType, GameType } from "./auth.enum";
 
 export interface User {
     wallet: number;
     max: number;
     min: number;
-    gameResult: null;
-    amount: number;
+    gameResult?: GameType | null;
+    winnings: number;
+    losings: number;
 }
 
 export interface AuthState {

@@ -10,7 +10,7 @@ const initialState: AppState = {
             dice2: 0,
             dice3: 0,
         },
-        gameStatus: GameStatus.CLOSED,
+        gameStatus: GameStatus.STARTING,
         second: -1,
     },
     bet: {

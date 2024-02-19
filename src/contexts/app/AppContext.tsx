@@ -27,7 +27,7 @@ const AppContext = createContext<AppContextType>({
 });
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
-    const { dispatch: authDispatch } = useAuth();
+    const { user, dispatch: authDispatch } = useAuth();
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useSubscription(configs.socket.start, (message) => {
@@ -37,7 +37,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
             switch (data.gameStatus) {
                 case GameStatus.STARTING:
                     toast("Game is starting", {
-                        icon: "🦆",
+                        icon: "🎲",
                     });
                     break;
 
@@ -49,7 +49,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 
                 case GameStatus.CLOSED:
                     toast("Game is closed", {
-                        icon: "💸",
+                        icon: "🔒",
                     });
                     break;
             }
@@ -58,6 +58,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     useEffect(() => {
+        if (!user) return;
         if (state.receivedMessage.gameStatus === GameStatus.CLOSED)
             (async () => {
                 try {
@@ -65,7 +66,17 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                         data: { data },
                     } = await getUser();
 
-                    authDispatch(signIn({ user: data }));
+                    authDispatch(signIn({ user: { ...data, min: 0, max: 0 } }));
+
+                    data.winnings &&
+                        toast("You won " + data.winnings, {
+                            icon: "🎉",
+                        });
+
+                    data.losings &&
+                        toast("You lost " + data.losings, {
+                            icon: "💸",
+                        });
                 } catch (error) {
                     const e = error as AxiosError<AppError>;
                     toast.error(
@@ -73,7 +84,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     );
                 }
             })();
-    }, [authDispatch, state.receivedMessage.gameStatus]);
+    }, [authDispatch, state.receivedMessage.gameStatus, user]);
 
     return (
         <AppContext.Provider value={{ ...state, dispatch }}>
