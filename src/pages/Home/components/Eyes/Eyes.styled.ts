@@ -40,7 +40,6 @@ export const DuckEye = css<GameStyledProps>`
 
         ${({ $gameStatus }) => {
             switch ($gameStatus) {
-                case GameStatus.STARTING:
                 case GameStatus.BET_LOCKED:
                     return css`
                         animation: blink ease 1s forwards;

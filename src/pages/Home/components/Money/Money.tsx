@@ -13,7 +13,7 @@ const Money = memo(() => {
         user && (
             <MoneyWrapper>
                 <MyWallet>
-                    <span>{formatCurrency(user.wallet)}</span>
+                    <span>{user.wallet.toLocaleString("vi-VN")}</span>
                     <img src={icons.dollar} alt="dollar" />
                 </MyWallet>
 

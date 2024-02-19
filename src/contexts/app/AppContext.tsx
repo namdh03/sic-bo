@@ -69,14 +69,22 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     authDispatch(signIn({ user: { ...data, min: 0, max: 0 } }));
 
                     data.winnings &&
-                        toast("You won " + data.winnings, {
-                            icon: "🎉",
-                        });
+                        toast(
+                            "You won " +
+                                Number(data.winnings).toLocaleString("vi-VN"),
+                            {
+                                icon: "🎉",
+                            }
+                        );
 
                     data.losings &&
-                        toast("You lost " + data.losings, {
-                            icon: "💸",
-                        });
+                        toast(
+                            "You lost " +
+                                Number(data.losings).toLocaleString("vi-VN"),
+                            {
+                                icon: "💸",
+                            }
+                        );
                 } catch (error) {
                     const e = error as AxiosError<AppError>;
                     toast.error(
@@ -84,7 +92,8 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     );
                 }
             })();
-    }, [authDispatch, state.receivedMessage.gameStatus, user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [authDispatch, state.receivedMessage.gameStatus]);
 
     return (
         <AppContext.Provider value={{ ...state, dispatch }}>

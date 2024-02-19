@@ -51,7 +51,7 @@ const Bet = memo(() => {
 
     const handleBetSingle = async () => {
         try {
-            if (!user || !bet.amount || !bet.betType) return;
+            if (!user || !bet.amount || !bet.betType || loading) return;
             setLoading(true);
 
             const {
@@ -75,7 +75,7 @@ const Bet = memo(() => {
 
     const handleBetAll = async () => {
         try {
-            if (!user || !bet.amount || !bet.betType) return;
+            if (!user || !bet.amount || !bet.betType || loading) return;
             setLoading(true);
 
             const {

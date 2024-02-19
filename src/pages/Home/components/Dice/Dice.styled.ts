@@ -19,7 +19,7 @@ export const DiceWrapper = styled.article<DiceStyledProps>`
             $gameStatus === GameStatus.BET_LOCKED) &&
         css`
             animation: roll-${$value}-${$randomValues[$randomValues.length - 1]}
-                linear 6s infinite;
+                linear 20s infinite;
 
             @keyframes roll-${$value}-${$randomValues[
                 $randomValues.length - 1
