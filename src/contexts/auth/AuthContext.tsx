@@ -4,6 +4,7 @@ import {
     PropsWithChildren,
     useEffect,
     useReducer,
+    useState,
 } from "react";
 import Cookies from "universal-cookie";
 
@@ -29,6 +30,9 @@ const AuthContext = createContext<AuthContextType>({
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [portrait, setPortrait] = useState<boolean>(
+        window.matchMedia("(orientation: portrait").matches
+    );
 
     useEffect(() => {
         (async () => {
@@ -51,9 +55,33 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         })();
     }, []);
 
+    // Detect Landscape or Portrait mode with JavaScript
+    useEffect(() => {
+        window
+            .matchMedia("(orientation: portrait)")
+            .addEventListener("change", (e) => setPortrait(e.matches));
+
+        return () => {
+            window
+                .matchMedia("(orientation: portrait)")
+                .removeEventListener("change", () => {});
+        };
+    }, []);
+
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
-            {state.isInitialized ? children : <Loading />}
+            {state.isInitialized ? (
+                portrait ? (
+                    <p>
+                        Please rotate your device to landscape mode to view this
+                        page.
+                    </p>
+                ) : (
+                    children
+                )
+            ) : (
+                <Loading />
+            )}
         </AuthContext.Provider>
     );
 };

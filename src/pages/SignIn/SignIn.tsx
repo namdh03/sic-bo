@@ -37,6 +37,9 @@ const SignIn = () => {
         try {
             event.preventDefault();
 
+            if (!form.username || !form.password)
+                return toast.error("Please fill in all fields");
+
             setLoading(true);
 
             const {

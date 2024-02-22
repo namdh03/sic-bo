@@ -85,12 +85,12 @@ export const ModalActions = styled.div`
 `;
 
 export const ModalLoading = styled.div`
+    display: inline-block;
     width: 20px;
     height: 20px;
     border: 3px solid ${theme.colors.white};
     border-bottom-color: transparent;
     border-radius: 50%;
-    display: inline-block;
 
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

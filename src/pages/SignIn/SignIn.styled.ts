@@ -141,12 +141,12 @@ export const SignInLink = styled(Link)`
 `;
 
 export const SignInButtonLoading = styled.div`
+    display: inline-block;
     width: 28px;
     height: 28px;
     border: 3px solid ${theme.colors.white};
     border-bottom-color: transparent;
     border-radius: 50%;
-    display: inline-block;
 
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
