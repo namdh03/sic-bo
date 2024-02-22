@@ -5,7 +5,6 @@ import { StompSessionProvider } from "react-stomp-hooks";
 import { ThemeProvider } from "styled-components";
 
 import configs from "@/configs";
-import { AppProvider } from "@/contexts/app/AppContext.tsx";
 import { AuthProvider } from "@/contexts/auth/AuthContext.tsx";
 import theme, { GlobalStyle } from "@/themes";
 
@@ -18,9 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
                 <AuthProvider>
-                    <AppProvider>
-                        <App />
-                    </AppProvider>
+                    <App />
                 </AuthProvider>
             </ThemeProvider>
         </StompSessionProvider>

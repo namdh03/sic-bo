@@ -8,13 +8,20 @@ export const ModalWrapper = styled.div<ModalStyleProps>`
     position: fixed;
     top: 50%;
     left: 50%;
+
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+
     z-index: 9999;
     padding: 18px 30px;
     border-radius: 20px;
     background-color: ${theme.colors.quaternary};
     opacity: 0;
     visibility: hidden;
+
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 
     ${({ $isOpen }) =>
@@ -39,14 +46,26 @@ export const ModalWrapper = styled.div<ModalStyleProps>`
 `;
 
 export const ModalActions = styled.div`
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+
     gap: 20px;
     margin-top: 24px;
 
     button {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
+
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
+
         min-width: 110px;
         padding: 0 6px;
         height: 30px;
@@ -72,15 +91,32 @@ export const ModalLoading = styled.div`
     border-bottom-color: transparent;
     border-radius: 50%;
     display: inline-block;
+
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
+    -webkit-animation: rotation 1s linear infinite;
     animation: rotation 1s linear infinite;
 
-    @keyframes rotation {
+    @-webkit-keyframes rotation {
         0% {
+            -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
         }
 
         100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes rotation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
         }
     }

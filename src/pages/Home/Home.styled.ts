@@ -4,17 +4,37 @@ import theme from "@/themes";
 
 export const HomeWrapper = styled.section`
     position: relative;
+    
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+
     height: 100dvh;
     background-color: ${theme.colors.primary};
 `;
 
 export const Board = styled.section`
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+
     padding-bottom: 16px;
 `;
 
@@ -27,6 +47,8 @@ export const Face = styled.div`
         display: inline-block;
         width: 100%;
         height: 100%;
+
+        -o-object-fit: contain;
         object-fit: contain;
     }
 `;
@@ -54,5 +76,8 @@ export const SignIn = styled.img`
     right: 0;
     padding: 12px;
     cursor: pointer;
+
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
     transform: rotate(180deg);
 `;

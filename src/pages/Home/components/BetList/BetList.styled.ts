@@ -8,19 +8,38 @@ export const BetList = styled.ul<BetListStyleProps>`
     position: absolute;
     left: 50%;
     bottom: -31px;
+
+    -webkit-transform: translate(-50%, 10px);
+    -ms-transform: translate(-50%, 10px);
     transform: translate(-50%, 10px);
+
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+
     gap: 18px;
     opacity: 0;
     visibility: hidden;
+
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 
     ${({ $betType }) =>
         $betType &&
         css`
+            -webkit-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
+
             opacity: 1;
             visibility: visible;
         `}

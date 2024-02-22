@@ -4,9 +4,19 @@ import theme from "@/themes";
 
 export const HatWrapper = styled.div`
     position: relative;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: flex-end;
+
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+
     min-width: 36%;
     height: 54px;
     background-color: ${theme.colors.black};
@@ -18,7 +28,11 @@ export const HatWrapper = styled.div`
         position: absolute;
         top: 100%;
         left: 50%;
+
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
         transform: translateX(-50%);
+        
         display: inline-block;
         width: calc(100% + 180px);
         padding: 5px 0;
