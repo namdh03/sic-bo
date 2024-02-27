@@ -4,17 +4,17 @@ import configs from "@/configs";
 import { signIn } from "@/contexts/auth/reducers";
 import { useAuth } from "@/hooks";
 import Auth from "@/layouts/Auth";
-import { FormType, getUser, signIn as signInAPI } from "@/services/user";
+import { FormType, getUser, signUp as signUpAPI } from "@/services/user";
 
 const cookies = new Cookies(null, { path: "/" });
 
-const SignIn = () => {
+const SignUp = () => {
     const { dispatch } = useAuth();
 
     const handleSubmit = async (form: FormType) => {
         const {
             data: { token },
-        } = await signInAPI(form);
+        } = await signUpAPI(form);
         cookies.set(configs.cookies.token, token);
 
         const {
@@ -26,13 +26,14 @@ const SignIn = () => {
 
     return (
         <Auth
-            title="BACXIU SIGN IN"
-            linkUrl={configs.routes.signUp}
-            linkText="Sign up here"
-            submitText="Sign In"
+            title="BACXIU SIGN UP"
+            linkUrl={configs.routes.signIn}
+            linkText="Sign in here"
+            submitText="Sign Up"
             onSubmit={handleSubmit}
+            reverse
         />
     );
 };
 
-export default SignIn;
+export default SignUp;

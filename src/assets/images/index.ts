@@ -1,6 +1,6 @@
-import signIn from "@/assets/images/sign-in.png";
+import auth from "@/assets/images/auth.png";
 import table from "@/assets/images/table.png";
 
-const images = { table, signIn };
+const images = { table, auth };
 
 export default images;

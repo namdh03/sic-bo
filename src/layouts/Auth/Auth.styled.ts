@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import theme from "@/themes";
 
-export const SignInWrapper = styled.section`
+export const AuthWrapper = styled.section`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -20,7 +20,7 @@ export const SignInWrapper = styled.section`
     background-color: ${theme.colors.primary};
 `;
 
-export const SignInInner = styled.div`
+export const AuthInner = styled.div<{ $reverse: boolean }>`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -33,11 +33,20 @@ export const SignInInner = styled.div`
     -ms-flex-pack: center;
     justify-content: center;
 
+    ${({ $reverse }) =>
+        $reverse &&
+        css`
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: reverse;
+            -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+        `}
+
     gap: 70px;
     height: 340px;
 `;
 
-export const SignInImageWrapper = styled.figure`
+export const AuthImageWrapper = styled.figure`
     min-width: 290px;
     height: 100%;
 
@@ -49,7 +58,7 @@ export const SignInImageWrapper = styled.figure`
     }
 `;
 
-export const SignInFormWrapper = styled.div`
+export const AuthFormWrapper = styled.div`
     min-width: 290px;
 
     h1 {
@@ -59,7 +68,7 @@ export const SignInFormWrapper = styled.div`
     }
 `;
 
-export const SignInForm = styled.form`
+export const AuthForm = styled.form`
     display: "flex";
 
     -webkit-box-orient: vertical;
@@ -74,7 +83,7 @@ export const SignInForm = styled.form`
     margin-top: 32px;
 `;
 
-export const SignInFormGroup = styled.div`
+export const AuthFormGroup = styled.div`
     width: 100%;
 
     & + & {
@@ -106,7 +115,7 @@ export const SignInFormGroup = styled.div`
     }
 `;
 
-export const SignInButton = styled.button`
+export const AuthButton = styled.button`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -131,7 +140,7 @@ export const SignInButton = styled.button`
     cursor: pointer;
 `;
 
-export const SignInLink = styled(Link)`
+export const AuthLink = styled(Link)`
     display: block;
     margin-top: 8px;
     text-align: right;
@@ -140,7 +149,7 @@ export const SignInLink = styled(Link)`
     font-weight: 600;
 `;
 
-export const SignInButtonLoading = styled.div`
+export const AuthButtonLoading = styled.div`
     display: inline-block;
     width: 28px;
     height: 28px;

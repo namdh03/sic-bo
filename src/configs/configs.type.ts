@@ -1,6 +1,6 @@
-export type RouteKey = "home" | "signIn" | "error";
+export type RouteKey = "home" | "signIn" | "signUp" | "error";
 
-export type RouteValue = "/" | "sign-in" | "*";
+export type RouteValue = "/" | "sign-in" | "sign-up" | "*";
 
 export type RouteConfigType = { [K in RouteKey]: RouteValue };
 

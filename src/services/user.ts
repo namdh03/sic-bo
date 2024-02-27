@@ -1,12 +1,16 @@
 import { get, post } from "./api";
 
-type SignInFormType = {
+export type FormType = {
     username: string;
     password: string;
 };
 
-export const signIn = (account: SignInFormType) => {
+export const signIn = (account: FormType) => {
     return post("/api/v1/auth/signin", account);
+};
+
+export const signUp = (account: FormType) => {
+    return post("/api/v1/auth/signup", account);
 };
 
 export const getUser = () => {
